@@ -15,7 +15,12 @@ os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 def sanitize_filename(filename):
     return re.sub(r'[\/:*?"<>|]', '_', filename)
 
+@app.route('/')
+def index():
+    return 'Bem-vindo ao aplicativo Flask!'
+
 @app.route('/download', methods=['POST'])
+
 def download_video():
     data = request.json
     url = data.get("url")
@@ -36,10 +41,11 @@ def download_video():
         return jsonify({"message": "Download concluído!", "file": filename})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
 @app.route('/files/<filename>', methods=['GET'])
 def serve_file(filename):
     return send_from_directory(DOWNLOAD_FOLDER, filename, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
