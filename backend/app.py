@@ -9,11 +9,9 @@ app = Flask(__name__)
 
 CORS(app)
 
-# Diretório de destino para salvar os vídeos
 DOWNLOAD_FOLDER = "downloads"
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
-# Função para sanitizar o nome do arquivo
 def sanitize_filename(filename):
     return re.sub(r'[\/:*?"<>|]', '_', filename)
 
